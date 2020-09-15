@@ -12,21 +12,19 @@ namespace SimpleCalculator
         {
             try
             {
-                string input = Console.ReadLine();
+                InputConverter inputConverter = new InputConverter();
+                CalculatorEngine calculatorEngine = new CalculatorEngine();
 
-               try
-                {
-                    StringToIntConverter stringToIntConverter = new StringToIntConverter();
-                    stringToIntConverter.convert(input);
-                } catch (Exception ex) {
-                    Console.WriteLine("There was an error with conversion: {0}", ex.Message);
-                }
+                double firstNumber = inputConverter.ConvertInputToNumeric(Console.ReadLine());
+                double secondNumber = inputConverter.ConvertInputToNumeric(Console.ReadLine());
+                string operation = Console.ReadLine();
 
-                
+                double result = calculatorEngine.Calculate(operation, firstNumber, secondNumber);
+
+                Console.WriteLine(result);
             } catch (Exception ex) {
-                Console.WriteLine("There was an error: {0}", ex.Message);
-            } finally {
-                Console.WriteLine("The rest of my application is still running.");
+                //in the real world, we would want to log this message.
+                Console.WriteLine(ex.Message);
             }
             
 
